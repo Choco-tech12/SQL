@@ -65,7 +65,7 @@ FROM fortune_companies
 WHERE paid_time_off_days > 20
 AND healthcare_benefits = 1;
 
-# Placed all companies in order of total time given off by least to most.
+# Placed all companies in order of total time given off from least to most.
 SELECT company_name, (maternity_leave_weeks *5) + paid_time_off_days AS total_time_given
 FROM fortune_companies
 ORDER BY total_time_given;
@@ -91,7 +91,7 @@ FROM fortune_companies
 GROUP BY industry
 HAVING avg_revenue_billions >= 200;
 
-# Sorted companys in both Healthcare and Technology industry by revenue.
+# Filtered and sorted companies in both Healthcare and Technology by revenue.
 SELECT company_name, industry, revenue
 FROM fortune_companies
 WHERE industry = "Healthcare"
