@@ -1,0 +1,50 @@
+Climate Conference Project 
+Database: https://www.db-fiddle.com/f/pxMci1sLL945KHKYvpe9W6/1
+
+# LEFT JOIN: List of all VIPs who are scheduled for an event.
+
+SELECT vips.first_name, vips.last_name, events.event_name
+FROM events
+LEFT JOIN vips
+ON events.event_id = vips.event;
+
+# INNER JOIN: List of all VIPs who have a dinner RSVP.
+
+SELECT vips.first_name, vips.last_name
+FROM vips
+INNER JOIN reservations
+ON vips.member_id = reservations.member_id
+WHERE dinner_rsvp = 1;
+
+# MULTI JOIN: List VIPs and their Hotel names.
+
+SELECT vips.first_name, vips.last_name, hotels.hotel_name
+FROM vips
+JOIN reservations
+ON vips.member_id = reservations.member_id
+JOIN hotels
+ON hotels.hotel_id = reservations.hotel;
+
+# SELF JOIN: Seeking all VIPs who are either receiving feedback or are giving feedback.
+
+SELECT A.first_name receiving_feedback, B.first_name giving_feedback
+FROM vips A
+FULL OUTER JOIN vips B
+ON A.member_id = B.provides_feedback_to;
+
+# Query with a Subquery: Finding VIPs associated with Researching who are in an event.
+
+SELECT vips.first_name, vips.last_name, events.event_name
+FROM vips
+JOIN events
+ON vips.event = events.event_id
+WHERE vips.first_name = (SELECT vips.first_name
+FROM vips
+WHERE assoc_type = 'research');
+
+# Custom Query: Find the number of VIPs attending each event, ordered by event attendance.
+SELECT e.event_name, COUNT(v.member_id) AS attendee_count
+FROM events e
+LEFT JOIN vips v ON e.event_id = v.event
+GROUP BY e.event_name
+ORDER BY attendee_count DESC;
