@@ -74,7 +74,7 @@ FROM BIT_DB.FebSales
 WHERE orderdate between '02/13/19 00:00' AND '02/18/19 00:00'
 ;
 
-11. In March, find the order ID that starts with '16', any 1 number after followed by a 0, followed by any number(s) after.
+11. In March, find the order ID(s) that starts with '16', any number followed by a 0, then followed by any number(s) after.
 SELECT orderID
 FROM BIT_DB.MarSales
 WHERE orderID LIKE '16_0%'
